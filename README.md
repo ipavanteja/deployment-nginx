@@ -80,3 +80,25 @@ location / {
 - Now you can remove the **PORT 3000** (or whatever your PORT is) from the Firewall Rules section of the VPC networks.
 - Now your app is only accessible via the domain, without any port. It won’t be accessible via the PORT number.
 
+## Redirecting IP to domain
+
+```nginx
+server {
+listen 80;
+server_name <IP address>;
+return 301 https://<domain-name>$request_uri;
+}
+```
+
+We need to add this server block to the end of the nginx configuration file to redirect IP to domain.
+
+## Blocking IP address (dropping IP address access)
+```nginx
+server {
+listen 80;
+server_name <IP address>;
+return 444;
+}
+```
+
+Add the following at the end of the file to drop the IP.
