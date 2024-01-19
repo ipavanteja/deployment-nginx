@@ -102,3 +102,6 @@ server {
 ```
 
 Add the following at the end of the file to drop the IP.
+
+Don't forget to restart nginx
+- **systemctl restart nginx**
