@@ -54,5 +54,26 @@ server {
 - Now save the file. We also need to test the file for possible errors. For that ->
   - **nginx -t**
 - If everything went well, the reply should say -> test is successful. If not, re-check what you wrote in the file.
-  Then ->
-  - systemctl restart nginx
+  - **systemctl restart nginx**
+- Now check your domain again. If the server block is working properly, now it should show your app’s page.
+
+
+{ you have overridden the web server’s path to a custom path which points to your app. }
+
+## Reverse proxying node app with NGINX
+- **nano etc/nginx/sites-available/<domain-name>**
+- We have to put the location tag in the file that we wrote earlier. Now write this in the location tag ->
+```nginx
+location / {
+    proxy_pass http://localhost:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_cache_bypass $http_upgrade;
+}
+```
+- Now you can remove the **PORT 3000** (or whatever your PORT is) from the Firewall Rules section of the VPC networks.
+- Now your app is only accessible via the domain, without any port. It won’t be accessible via the PORT number.
+
