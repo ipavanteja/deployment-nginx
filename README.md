@@ -16,7 +16,7 @@ Now wait for about 10 to 15 mins and then check with your **`<domain-name>:PORT`
 
 Now we will get back to **reverse proxying:** (how to proxy the traffic from PORTs 80 & 443 to your App’s PORT)
 
-- First just do (just for safety) -> `apt update && apt upgrade`
+- First just do (just for safety) -> **`apt update && apt upgrade`**
 - Now do -> **`apt install nginx`**
 - After installation, check the status of NGINX
   - **`systemctl status nginx`**
@@ -26,12 +26,12 @@ Now we will get back to **reverse proxying:** (how to proxy the traffic from POR
 
 ## Setting Up NGINX Server Blocks
 
-By Default all web servers will point out to **`/var/www/html`**. To override this rule to a custom path, we have to create a server block. Here our new path of the web server block will be -> `/var/www/<domain.com>/html`
+By Default all web servers will point out to **`/var/www/html`**. To override this rule to a custom path, we have to create a server block. Here our new path of the web server block will be -> **`/var/www/<domain.com>/html`**
 
-- `mkdir -p /var/www/<domain>.com/html`
-- `nano index.html`
+- **`mkdir -p /var/www/<domain>.com/html`**
+- **`nano index.html`**
 - From the earlier path (`/var/www/<domain>.com/html`)
-  - `nano /etc/nginx/sites-available/<domain-name>` (this will create a new file)
+  - **`nano /etc/nginx/sites-available/<domain-name>`** (this will create a new file)
 
 Now write the following in the file:
 
