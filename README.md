@@ -84,20 +84,20 @@ location / {
 
 ```nginx
 server {
-listen 80;
-server_name <IP address>;
-return 301 https://<domain-name>$request_uri;
+    listen 80;
+    listen 8081;
+    server_name <IP address>;
+    return 301 https://<domain-name>$request_uri;
 }
 ```
-
-We need to add this server block to the end of the nginx configuration file to redirect IP to domain.
+We need to add this server block to the end of the nginx configuration file to redirect IP to the domain.
 
 ## Blocking IP address (dropping IP address access)
 ```nginx
 server {
-listen 80;
-server_name <IP address>;
-return 444;
+    listen 80;
+    server_name <IP address>;
+    return 444;
 }
 ```
 
