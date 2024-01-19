@@ -1,4 +1,6 @@
-# Deployment-NGINX
+<div style="text-align:center">
+<h1 text-align="centre">DEPLOYMENT-NGINX</h1>
+</div>
 
 ## Setting Up Cloud DNS
 
