@@ -1,4 +1,4 @@
-# Deployment-nginx
+# Deployment-NGINX
 
 ## Setting Up Cloud DNS
 
