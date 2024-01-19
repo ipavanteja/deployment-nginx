@@ -47,3 +47,12 @@ server {
         try_files $uri $uri/ =404;
     }
 }
+```
+
+- Add a soft link from sites-enabled to sites-available
+  - **ln -s /etc/nginx/sites-available/<domain-name> /etc/nginx/sites-enabled/**
+- Now save the file. We also need to test the file for possible errors. For that ->
+  - **nginx -t**
+- If everything went well, the reply should say -> test is successful. If not, re-check what you wrote in the file.
+  Then ->
+  - systemctl restart nginx
