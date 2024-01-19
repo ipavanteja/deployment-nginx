@@ -1,4 +1,4 @@
-<h1 align="centre">DEPLOYMENT-NGINX</h1>
+<h1 align="center">DEPLOYMENT-NGINX</h1>
 
 ## Setting Up Cloud DNS
 
