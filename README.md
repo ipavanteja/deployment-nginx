@@ -16,22 +16,50 @@ Now wait for about 10 to 15 mins and then check with your **`<domain-name>:PORT`
 
 Now we will get back to **reverse proxying:** (how to proxy the traffic from PORTs 80 & 443 to your App’s PORT)
 
-- First just do (just for safety) -> **`apt update && apt upgrade`**
-- Now do -> **`apt install nginx`**
+- First just do (just for safety)
+```nginx
+sudo apt update && apt upgrade
+```
+- Now install **nginx** 
+```nginx
+sudo apt install nginx
+```
 - After installation, check the status of NGINX
-  - **`systemctl status nginx`**
-  - The Active should show active (running)
-- If it is not active, you need to do -> **`systemctl start nginx`**
-- Now check your app again -> it should show an nginx page unless you have put an html file in the **`/var/www/html`** Path.
+```nginx
+systemctl status nginx
+```
+- The Active should show active (running)
+- If it is not active, you need to do
+```nginx
+systemctl start nginx
+```
+- Now check your app again. It should show an nginx page unless you have put an html file in the **`/var/www/html`** Path.
 
 ## Setting Up NGINX Server Blocks
 
-By Default all web servers will point out to **`/var/www/html`**. To override this rule to a custom path, we have to create a server block. Here our new path of the web server block will be -> **`/var/www/<domain.com>/html`**
+By Default all web servers will point out to **`/var/www/html`**. To override this rule to a custom path, we have to create a server block. Here our new path of the web server block will be, **`/var/www/<domain.com>/html`**
 
-- **`mkdir -p /var/www/<domain>.com/html`**
-- **`nano index.html`**
-- From the earlier path (`/var/www/<domain>.com/html`)
-  - **`nano /etc/nginx/sites-available/<domain-name>`** (this will create a new file)
+- Create a directory for your custom path
+```nginx
+mkdir -p /var/www/<domain>.com/html
+```
+
+- Go to that newly created directory
+```nginx
+cd /var/www/<domain>.com/html
+```
+
+- Create an index.html file and write a simple **h1** tag to check. 
+```nginx
+nano index.html
+```
+- Save the file and exit
+
+- Now create an nginx server block for your domain 
+```nginx
+nano /etc/nginx/sites-available/<domain-name>
+```
+- This will create a new file
 
 Now write the following in the file:
 
@@ -43,8 +71,8 @@ server {
     index index.html index.htm index.nginx-debian.html;
     server_name <example>.com www.<example>.com;
 
-    location / {
-        try_files $uri $uri/ =404;
+  location / {
+      try_files $uri $uri/ =404;
     }
 
     access_log /var/log/nginx/<example>.com.access.log;
@@ -53,18 +81,29 @@ server {
 ```
 
 - Add a soft link from sites-enabled to sites-available
-  - **ln -s /etc/nginx/sites-available/<domain-name> /etc/nginx/sites-enabled/**
-- Now save the file. We also need to test the file for possible errors. For that ->
-  - **nginx -t**
-- If everything went well, the reply should say -> test is successful. If not, re-check what you wrote in the file.
-  - **systemctl restart nginx**
-- Now check your domain again. If the server block is working properly, now it should show your app’s page.
+```nginx
+ln -s /etc/nginx/sites-available/<domain-name> /etc/nginx/sites-enabled/
+```
+
+- Now save the file. We also need to test the file for possible errors. For that do
+```nginx
+nginx -t
+```
+
+- If everything went well, the reply should say, **test is successful**. If not, re-check what you wrote in the file.
+- Finally restart the nginx
+```nginx
+systemctl restart nginx
+```
+- Now check your domain again. If the server block is working properly, now it should show your app’s page **h1** tag.
 
 
-{ you have overridden the web server’s path to a custom path which points to your app. }
+{ you have overridden the web server’s path to a custom path that points to your app. }
 
 ## Reverse proxying node app with NGINX
-- **nano etc/nginx/sites-available/<domain-name>**
+```nginx
+nano etc/nginx/sites-available/<domain-name>
+```
 - We have to put the location tag in the file that we wrote earlier. Now write this in the location tag ->
 ```nginx
 location / {
@@ -104,4 +143,6 @@ server {
 Add the following at the end of the file to drop the IP.
 
 Don't forget to restart nginx
-- **systemctl restart nginx**
+```nginx
+systemctl restart nginx
+```
