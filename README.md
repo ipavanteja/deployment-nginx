@@ -142,7 +142,11 @@ server {
 
 Add the following at the end of the file to drop the IP.
 
-Don't forget to restart nginx
+Don't forget to restart nginx and check the errors if any
 ```nginx
 systemctl restart nginx
+```
+
+```nginx
+nginx -t
 ```
